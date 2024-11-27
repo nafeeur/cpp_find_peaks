@@ -2,10 +2,11 @@
 #include "find_peaks.hpp"
 
 int main() {
-    std::vector<double> signal = {0, 2, 1, 3, 0, 1, 2, 1, 5, 7, 8, 1, 3, 0};
+    std::vector<double> signal = {0, 2, 1, 3, 0, 1, 2, 1, 0};
 
     signal_processing::FindPeaksOptions options;
     options.height = {1.5, std::numeric_limits<double>::infinity()};
+    options.threshold = {0.5, std::numeric_limits<double>::infinity()};
     options.distance = 1;
     options.prominence = {0.5, std::numeric_limits<double>::infinity()};
     options.width = {0.0, std::numeric_limits<double>::infinity()};
@@ -25,6 +26,8 @@ int main() {
     for (size_t i = 0; i < peaks.size(); ++i) {
         std::cout << "Peak at index " << peaks[i]
                   << " has height " << properties.peak_heights[i]
+                  << ", thresholds (" << properties.left_thresholds[i]
+                  << ", " << properties.right_thresholds[i] << ")"
                   << ", prominence " << properties.prominences[i]
                   << ", width " << properties.widths[i]
                   << std::endl;
@@ -32,4 +35,3 @@ int main() {
 
     return 0;
 }
-
